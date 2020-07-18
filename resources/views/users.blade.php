@@ -7,7 +7,8 @@
     <title>Document</title>
 </head>
 <body>
-    Ini tampilan dari view home
-    <a href="/users">File</a>
+    Users = {{ $nama }}
+    Id = {{ $id }}
+    <a href="{{ route("admin.users", ['id' => 12]) }}">Link</a>
 </body>
 </html>
