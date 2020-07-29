@@ -17,37 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/home', function () {
-    return "Route home";
-});
+Route::get('users', 'UserController@index');
 
-Route::view('/users', 'users', ['nama' => 'dani','id' => 12]);
+Route::get('admin/{id}', 'Admin\AdminController@index');
 
-// Route::get('users/{id?}/{nama?}', function ($id = 0, $nama = "kosong") {
-//     return "User ".$id. " Nama : ". $nama;
-// })->where(['nama' => '[A-Za-z]+']);
-
-// Route::get('users/name/id/home/.../.../.../{id}', function ($id) {
-//     return "Users id = ".$id;
-// })->name('users');
-
-// Route::name('admin.')->group(function () {
-//     Route::get('users/{id}', function ($id) {
-//         return "Users id = " . $id;
-//     })->name('users');
-//     Route::get('home/{id}', function ($id) {
-//     });
-//     Route::get('dashboard/{id}', function ($id) {
-//     });
-// });
-
-Route::middleware('throttle:5,1')->group(function () {
-    Route::get('users/{id}', function ($id) {
-        return "Users id = ".$id;
-    });
-});
-
-
-Route::fallback(function () {
-    return "Route yang dituju tidak ada";
-});
+Route::resource('resource', 'ResourceController')->names([
+    'index' => 'index',
+    'store' => 'store'
+])->parameters([
+    'resource' => 'id'
+]);
